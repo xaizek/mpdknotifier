@@ -1,0 +1,23 @@
+Dependences:
+
+- KDE4
+- libnotify
+- CMake
+
+Assuming that your current directory is one containing this file use following
+commands to compile program:
+
+mkdir build
+cd build
+cmake ..
+make
+
+And to install it run:
+
+su -c "make install"
+
+To configure do:
+
+cp mpdknotifierrc-sample ~/.kde/share/config/mpdknotifierrc
+
+And edit it. See README file for available options.

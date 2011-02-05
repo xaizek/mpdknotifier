@@ -1,0 +1,26 @@
+v2.0:
+    - added log and option "LogFile"
+    - added conditional blocks in format
+    - added formats "%a", "%d", "%f" and "%%" to use inside commands
+    - added options "ArtResizeCmd", "PrefferedCoverWidth" and
+      "PrefferedCoverHeight" for automatic resizing of big images
+    - added option "ArtFindCmd" to add ability to use external program for
+      downloading/getting/copying cover if we can't find it
+
+    - now paths with non latin symbols are correct handled 
+    - big images are scaled now
+    - to avoid incorrect behaviour in case of invalid extension of image file,
+      try to use next three formats: JPG, PNG and GIF (in this order)
+
+    - bug fix, correct handle "MusicDir" option value without ending slash
+
+v1.2:
+    - added option "Format" to support format string for composing text in the
+      notification
+    - added options "CommandsNames" and "Commands" to support custom commands in
+      the notification
+
+    - bug fix, "Album Artist" tag has been processed as "Album" tag
+
+v1.0:
+    - initial version by Jakub Horák <kubahorak@gmail.com>

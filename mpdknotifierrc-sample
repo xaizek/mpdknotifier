@@ -1,0 +1,7 @@
+[General]
+MPDHost=localhost
+MPDPort=6600
+MusicDir=/mnt/music/
+CommandsNames=Open ncmpcpp
+Commands=terminal -x ncmpcpp
+Format=<b>Title:</b> %Title%<br><b>Artist:</b> %Artist%<br><b>Album:</b> %Album%<br><b>Date:</b> %Date%

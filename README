@@ -1,0 +1,126 @@
+Contents
+1. Authors
+2. Description
+3. Options in mpdknotifierrc file
+4. Album art search algorithm
+5. See also
+
+1. Authors
+
+Developer of MpdKNotifier v1.0: Jakub Horák <kubahorak@gmail.com>
+Further development: xaizek <xaizek@gmail.com>
+
+2. Description
+
+This small program shows notifications with short information about current
+track of MPD using libnotify (http://www.galago-project.org/news/index.php). It
+can:
+- display album art
+- use external application to get cover (format is supported)
+- resize album art if its bigger than needed
+- display custom list of commands (format is supported)
+
+3. Options in mpdknotifierrc file
+
+In configuration file mpdknotifierrc (that should be copied into
+~/.kde/share/config/) in group "General" you can use options from the list
+below:
+1. MPDHost
+2. MPDPort
+3. MusicDir
+4. CommandsNames
+5. Commands
+6. Format
+7. ArtFindCmd
+8. LogFile
+9. PreferredCoverWidth
+10. PreferredCoverHeight
+11. ArtResizeCmd
+
+Note: 
+There is a default value for each option. So you can skip some of theme in your
+configuration file. You can see them below in brackets after equals ('=')
+symbol. Here is full format of each entry:
+    n) parameter_name [=default_value]
+    Description.
+
+1) MPDHost [=localhost]
+Sets IP address or DNS name of MPD server host.
+
+2) MPDPort [=6600]
+Sets number of port to connect to MPD server.
+
+3) MusicDir [=/mnt/music/]
+Sets path to the music collection, should be same as one in mpd.conf. Needed for
+getting album art.
+
+4) CommandsNames [=Open ncmpcpp]
+List of semicolon (';') separated command names.
+
+5) Commands [=terminal -x ncmpcpp]
+List of semicolon (';') commands. Next special sequences can be used:
+- '%a' - full path to album art
+- '%f' - full path to current track
+- '%d' - full path to parent directory of current track
+- '%с' - name of album art file
+- '%%' - percent symbol
+
+6) Format [=%Artist% - %Title%{\n%Album%} {(%Date%)}]
+Format string for text message in the notification. You can use any tags that
+are supported by your version of MPD server. Just surround them with percent
+('%') symbol.
+Also you can use conditional blocks using curly brackets ('{' and '}').
+Conditional block will be displayed only if all tags it includes had been
+expanded. For additional formating HTML tags (<b></b>, <i></i>, <br>, ...) and
+escape sequences ('\t', '\n', ...) can be used. But depending on your notify
+daemon you can use both types together or only one at a time.
+
+7) ArtFindCmd [=<empty string>]
+If MPDKNotifier can't find album art, then this command is executed and search
+is repeated.
+
+8) LogFile [=~/.mpdknotifier/log.txt]
+Log file name. You can use '~' symbol to refer to your home directory. 
+
+9) PreferredCoverWidth [=200]
+Preferred width of album art in pixels. This option is used for scaling album
+art and to decide if we need to call ArtResizeCmd.
+
+10) PreferredCoverHeight [=200]
+Preferred height of album art in pixels. This option is also used for scaling
+album art and to decide if we need to call ArtResizeCmd.
+
+11) ArtResizeCmd [=<empty string>]
+Contains command for resizing images bigger than PreferredCoverWidth x
+PreferredCoverHeight. You can use all special sequences like in Commands option.
+
+4. Album art search algorithm
+
+Firstly a search for any jpg, png or gif file in parent directory of current
+track is performed. If we found nothing than executing command from ArtFindCmd
+option and repeating this algorithm from start (but only once). If we found only
+1 image, then use it as a cover. Otherwise try to find best match. Perform the
+second search using next patterns:
+    [fF]ront.jpg
+    [fF]ront.png
+    [cC]over.jpg
+    [cC]over.png
+if we have matches take first of them and finish. Else perform third search with
+this patterns:
+    *[fF]ront*.jpg
+    *[fF]ront*.png
+    *[cC]over*.jpg
+    *[cC]over*.png
+if we found something take any of results and finish. Else take first image from
+results of first search.
+
+5. See also
+
+For additional instructions:
+http://mpd.wikia.com/wiki/Client:MpdKNotifier
+
+For latest version:
+https://github.com/xaizek/mpdknotifier
+
+For homepage of original developer:
+http://zee.cz/

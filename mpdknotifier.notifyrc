@@ -1,0 +1,8 @@
+[Global]
+IconName=x-media-podcast
+Comment=MPD Notifier
+
+[Event/message]
+Name=Message
+Comment=Default message
+Action=Popup

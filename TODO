@@ -1,0 +1,13 @@
+- perhaps search for album art using custom patterns with format arguments
+
+- perhaps search for album art in subdirectories (named like 'covers' or
+  similair)
+
+- perhaps add an option to pop-up a message after stopping playback
+
+- tunable duration of notifications (it seems like this depends only from
+  notification daemon)
+
+- ability to set an image file for albums without cover
+
+- add command line argument to enable debug mode
