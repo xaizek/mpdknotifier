@@ -1,7 +1,7 @@
 Dependences:
 
 - KDE4
-- libnotify
+- knotify
 - CMake
 
 Assuming that your current directory is one containing this file use following

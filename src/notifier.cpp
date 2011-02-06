@@ -291,7 +291,7 @@ QString Notifier::applyFormat(QString _frmt, const QStringList& _l)
         // remove conditional block braces without unexpanded tags
         _frmt = _frmt.replace(QRegExp("\\{([^%}]*)\\}"), "\\1");
     } while (_frmt != tmp);
-    debug("text message: "_frmt);
+    debug("text message: " + _frmt);
 
     return (_frmt);
 }
