@@ -1,9 +1,10 @@
 Contents
 1. Authors
 2. Description
-3. Options in mpdknotifierrc file
-4. Album art search algorithm
-5. See also
+3. Arguments
+4. Options in mpdknotifierrc file
+5. Album art search algorithm
+6. See also
 
 1. Authors
 
@@ -20,7 +21,15 @@ can:
 - resize album art if its bigger than needed
 - display custom list of commands (format is supported)
 
-3. Options in mpdknotifierrc file
+3. Arguments
+
+    -d, --debug
+Use this argument to enable debug mode (which is disabled by default) if you
+want to see what happens at runtime. All debug messages will be printed out on
+stderr, not to log. So, you may want to redirect messages to a file like this:  
+    mpdknotifier --debug 2> debug.out
+
+4. Options in mpdknotifierrc file
 
 In configuration file mpdknotifierrc (that should be copied into
 ~/.kde/share/config/) in group "General" you can use options from the list
@@ -94,7 +103,7 @@ album art and to decide if we need to call ArtResizeCmd.
 Contains command for resizing images bigger than PreferredCoverWidth x
 PreferredCoverHeight. You can use all special sequences like in Commands option.
 
-4. Album art search algorithm
+5. Album art search algorithm
 
 Firstly a search for any jpg, png or gif file in parent directory of current
 track is performed. If we found nothing than executing command from ArtFindCmd
@@ -114,7 +123,7 @@ this patterns:
 if we found something take any of results and finish. Else take first image from
 results of first search.
 
-5. See also
+6. See also
 
 For additional instructions:
 http://mpd.wikia.com/wiki/Client:MpdKNotifier
