@@ -4,7 +4,8 @@ Contents
 3. Arguments
 4. Options in mpdknotifierrc file
 5. Album art search algorithm
-6. See also
+6. Bug reporting
+7. See also
 
 1. Authors
 
@@ -123,7 +124,14 @@ this patterns:
 if we found something take any of results and finish. Else take first image from
 results of first search.
 
-6. See also
+6. Bug reporting
+
+If you've found a bug or have some problems using this program, please inform
+the developers. Thus you can help to make this software better. If you have an
+account on GitHub.com you can create an issue there. Or you can always contact
+developers by email (see 'Authors' section).
+
+7. See also
 
 For additional instructions:
 http://mpd.wikia.com/wiki/Client:MpdKNotifier
