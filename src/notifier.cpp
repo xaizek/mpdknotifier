@@ -230,7 +230,7 @@ void Notifier::slotAction(unsigned int _n)
         debug("Executing command: '" + cmd + "'");
         system(cmd.toLocal8Bit());
     } else {
-        debug(QString("Invalid cmdnum: %d of %d")
+        debug(QString("Invalid cmdnum: %1 of %2")
               .arg(_n)
               .arg(m_commands.size()));
     }
