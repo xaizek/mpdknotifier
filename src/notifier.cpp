@@ -23,19 +23,15 @@
 #include <KConfigGroup>
 #include <KNotification>
 
+#include <QDebug>
 #include <QDir>
 #include <QDateTime>
 #include <QPixmapCache>
 #include <QRegExp>
 
-#include "notifier.h"
+#include "main.h"
 
-// TODO: replace this macros with variable and command line argument
-#ifndef DEBUG
-#define debug(msg)
-#else
-#include <QDebug>
-#endif
+#include "notifier.h"
 
 Notifier::Notifier() : QObject()
 {
@@ -182,8 +178,8 @@ void Notifier::popup(const QString& _text, QString _imageFilename)
     }
     m_notification = new KNotification("message");
 
-    debug(_imageFilename);
-    debug(m_lastImgFile);
+    debug("try pop-up with art: '" + _imageFilename + "'");
+    debug("previous pop-up art: '" + m_lastImgFile + "'");
     if (_imageFilename != "" && _imageFilename != m_lastImgFile) {
         debug("try to load album art");
         // TODO: someday figure out where is bug in Qt QPixmapCache with
@@ -231,11 +227,12 @@ void Notifier::slotAction(unsigned int _n)
     m_shownPopup = false;
     if (_n - 1 < (unsigned int)m_commands.size()) {
         QString cmd = substInCmd(m_commands[_n - 1]);
-        debug(cmd);
+        debug("Executing command: '" + cmd + "'");
         system(cmd.toLocal8Bit());
     } else {
-        debug(QString("Invalid cmdnum:") + QString::number(_n) + " of "
-              + QString::number(m_commands.size()));
+        debug(QString("Invalid cmdnum: %d of %d")
+              .arg(_n)
+              .arg(m_commands.size()));
     }
 }
 
@@ -353,7 +350,7 @@ bool Notifier::shouldImageBeScaled(const QPixmap& _image)
              .arg(m_preferredHeight));
 
     QString cmd = substInCmd(m_artResizeCmd);
-    debug(cmd);
+    debug("Command for scaling image: '" + cmd + "'");
     system(cmd.toLocal8Bit());
     return (true);
 }
@@ -400,9 +397,9 @@ void Notifier::logEvent(const QString& _msg)
     m_logFile.write("\n");
 }
 
-#ifdef DEBUG
 void Notifier::debug(const QString& _msg)
 {
-    qDebug("%s", _msg.toAscii().constData());
+    if (g_debugMode) {
+        qDebug("%s", _msg.toAscii().constData());
+    }
 }
-#endif // #ifdef DEBUG

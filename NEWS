@@ -1,4 +1,7 @@
-v2.0:
+v2.0.1:
+    - added debug mode, it can be enabled using '--debug' argument
+
+v2.0.0:
     - added log and option "LogFile"
     - added conditional blocks in format
     - added formats "%a", "%d", "%f" and "%%" to use inside commands
@@ -14,7 +17,7 @@ v2.0:
 
     - bug fix, correct handle "MusicDir" option value without ending slash
 
-v1.2:
+v1.2.0:
     - added option "Format" to support format string for composing text in the
       notification
     - added options "CommandsNames" and "Commands" to support custom commands in
@@ -22,5 +25,5 @@ v1.2:
 
     - bug fix, "Album Artist" tag has been processed as "Album" tag
 
-v1.0:
+v1.0.0:
     - initial version by Jakub Horák <kubahorak@gmail.com>

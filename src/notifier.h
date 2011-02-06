@@ -21,8 +21,6 @@
 #ifndef __NOTIFIER_HPP__
 #define __NOTIFIER_HPP__
 
-#define DEBUG
-
 #include <QFile>
 #include <QPixmap>
 #include <QString>
@@ -75,9 +73,7 @@ private:
     bool shouldImageBeScaled(const QPixmap& _image);
     QString substInCmd(QString _cmd);
     void logEvent(const QString& _msg);
-#ifdef DEBUG
     void debug(const QString& _msg);
-#endif
 };
 
 #endif // __NOTIFIER_HPP__

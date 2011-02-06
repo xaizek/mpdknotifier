@@ -22,16 +22,31 @@
 #include <KApplication>
 #include <KCmdLineArgs>
 
+#include <string.h>
+
 #include "notifier.h"
 
-int main (int argc, char *argv[])
+bool g_debugMode;
+
+int main(int argc, char** argv)
 {
     KAboutData aboutData("mpdknotifier",
                          0,
                          ki18n("MPD KDE Notifier"),
-                         "2.0");
-    KCmdLineArgs::init( argc, argv, &aboutData );
+                         "2.0.1",
+                         ki18n("A notification application that informs you "
+                               "about currently played song."),
+                         KAboutData::KAboutData::License_GPL_V2);
+    KCmdLineArgs::init(argc, argv, &aboutData);
+
+    KCmdLineOptions options;
+    options.add("d").add("debug", ki18n("Enable debug mode"));
+    KCmdLineArgs::addCmdLineOptions(options);
+
     KApplication app;
+
+    KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+    g_debugMode = args->isSet("debug");
 
     Notifier notif;
 
