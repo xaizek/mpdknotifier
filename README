@@ -4,7 +4,7 @@ Contents
 3. Arguments
 4. Options in mpdknotifierrc file
 5. Album art search algorithm
-6. Bug reporting
+6. Troubleshooting
 7. See also
 
 1. Authors
@@ -124,7 +124,7 @@ this patterns:
 if we found something take any of results and finish. Else take first image from
 results of first search.
 
-6. Bug reporting
+6. Troubleshooting
 
 If you've found a bug or have some problems using this program, please inform
 the developers. Thus you can help to make this software better. If you have an
