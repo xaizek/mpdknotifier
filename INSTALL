@@ -5,11 +5,12 @@ Dependences:
 - CMake
 
 Assuming that your current directory is one containing this file use following
-commands to compile program:
+commands to compile program (prefix is /usr/ since /usr/local/ may work
+incorrect):
 
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
 make
 
 And to install it run:
