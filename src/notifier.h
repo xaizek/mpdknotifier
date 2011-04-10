@@ -50,12 +50,14 @@ private:
     QTcpSocket m_soc;
     bool m_shownPopup;
     QPixmap m_pmap;
+    QPixmap m_noCoverPixmap;
     QString m_lastImgFile;
     // preferences
     QString m_musicDir;
     QString m_format;
     QStringList m_commandsNames;
     QStringList m_commands;
+    QString m_noCoverImg;
     QString m_artFindCmd;
     QString m_artResizeCmd;
     int m_preferredWidth, m_preferredHeight;
@@ -68,6 +70,7 @@ private:
 
     void showSongInfo(const QStringList& _songInfo);
     void initLogging(const QString& _logFile);
+    bool loadImg(const QString& _file, QPixmap& _pixmap);
     QString applyFormat(QString _frmt, const QStringList& _l);
     QString findAlbumArt(const QString& _dirpath);
     bool shouldImageBeScaled(const QPixmap& _image);

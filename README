@@ -46,6 +46,7 @@ below:
 9. PreferredCoverWidth
 10. PreferredCoverHeight
 11. ArtResizeCmd
+12. NoCoverImg
 
 Note: 
 There is a default value for each option. So you can skip some of theme in your
@@ -103,6 +104,9 @@ album art and to decide if we need to call ArtResizeCmd.
 11) ArtResizeCmd [=<empty string>]
 Contains command for resizing images bigger than PreferredCoverWidth x
 PreferredCoverHeight. You can use all special sequences like in Commands option.
+
+12) NoCoverImg [=/usr/share/apps/mpdknotifier/nocover.jpg]
+Path to the image file, that would be used when no cover was found.
 
 5. Album art search algorithm
 

@@ -7,5 +7,3 @@
 
 - tunable duration of notifications (it seems like this depends only from
   notification daemon)
-
-- ability to set an image file for albums without cover

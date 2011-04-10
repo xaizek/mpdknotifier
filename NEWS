@@ -1,3 +1,6 @@
+v2.0.2:
+    - added option "NoCoverImg"
+
 v2.0.1:
     - added debug mode, it can be enabled using '--debug' argument
 

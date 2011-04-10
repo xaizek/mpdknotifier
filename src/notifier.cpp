@@ -53,6 +53,8 @@ Notifier::Notifier() : QObject()
     m_commands = generalGroup.readEntry("Commands", "terminal -x ncmpcpp")
                  .split(';');
 
+    m_noCoverImg = generalGroup.readEntry("NoCoverImg",
+            "/usr/share/apps/mpdknotifier/nocover.jpg");
     m_artFindCmd = generalGroup.readEntry("ArtFindCmd", "");
     m_artResizeCmd = generalGroup.readEntry("ArtResizeCmd", "");
     m_preferredWidth = generalGroup.readEntry("PreferredCoverWidth", "200")
@@ -156,7 +158,7 @@ void Notifier::showSongInfo(const QStringList& _songInfo)
     aart = findAlbumArt(file);
     if (aart == "" && m_artFindCmd != "") {
         debug("aart: '" + aart + "'");
-        debug("advanced search for albim art");
+        debug("advanced search for album art");
         system(substInCmd(m_artFindCmd).toLatin1());
         aart = findAlbumArt(file);
     }
@@ -182,21 +184,10 @@ void Notifier::popup(const QString& _text, QString _imageFilename)
     debug("previous pop-up art: '" + m_lastImgFile + "'");
     if (_imageFilename != "" && _imageFilename != m_lastImgFile) {
         debug("try to load album art");
-        // TODO: someday figure out where is bug in Qt QPixmapCache with
-        // generating key for implicit caching
-        // TODO: maybe add an option to clear cache
-        //QPixmapCache::clear();
-        if (!m_pmap.load(_imageFilename, "JPG")
-                && !m_pmap.load(_imageFilename, "PNG")
-                && !m_pmap.load(_imageFilename, "GIF")) {
-            _imageFilename = "";
-            debug("album art load failed");
-            logEvent(tr("Album art file is not JPG, PNG or GIF."));
-        } else {
-            if (shouldImageBeScaled(m_pmap)) {
-                m_pmap = m_pmap.scaled(m_preferredWidth, m_preferredHeight);
-            }
+        if (loadImg(_imageFilename, m_pmap)) {
             m_lastImgFile = _imageFilename;
+        } else {
+            _imageFilename = "";
         }
     }
 
@@ -205,6 +196,13 @@ void Notifier::popup(const QString& _text, QString _imageFilename)
     m_notification->setText(_text);
     if (_imageFilename != "") {
         m_notification->setPixmap(m_pmap);
+    } else if (m_noCoverImg != "") {
+        if (m_noCoverPixmap.isNull()) {
+            debug("loading no cover art");
+            loadImg(m_noCoverImg, m_noCoverPixmap);
+        }
+        debug("using no cover art");
+        m_notification->setPixmap(m_noCoverPixmap);
     }
 
     connect(m_notification, SIGNAL(activated(unsigned int)),
@@ -257,6 +255,26 @@ void Notifier::displayError(QAbstractSocket::SocketError _socketError)
                            .arg(m_soc.errorString());
             break;
     }
+}
+
+bool Notifier::loadImg(const QString& _file, QPixmap& _pixmap)
+{
+    debug(QString("try to load image \"%1\"").arg(_file));
+    if (!_pixmap.load(_file, "JPG")
+            && !_pixmap.load(_file, "PNG")
+            && !_pixmap.load(_file, "GIF")) {
+        // TODO: someday figure out where is bug in Qt QPixmapCache with
+        // generating key for implicit caching
+        // TODO: maybe add an option to clear cache
+        //QPixmapCache::clear();
+        debug("image load failed");
+        logEvent(tr("Image file is not JPG, PNG or GIF."));
+        return (false);
+    }
+    if (shouldImageBeScaled(_pixmap)) {
+        _pixmap = _pixmap.scaled(m_preferredWidth, m_preferredHeight);
+    }
+    return (true);
 }
 
 QString Notifier::applyFormat(QString _frmt, const QStringList& _l)

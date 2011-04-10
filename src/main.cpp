@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     KAboutData aboutData("mpdknotifier",
                          0,
                          ki18n("MPD KDE Notifier"),
-                         "2.0.1",
+                         "2.0.2",
                          ki18n("A notification application that informs you "
                                "about currently played song."),
                          KAboutData::KAboutData::License_GPL_V2);
