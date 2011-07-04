@@ -308,6 +308,9 @@ QString Notifier::applyFormat(QString _frmt, const QStringList& _l)
     } while (_frmt != tmp);
     debug("text message: " + _frmt);
 
+    // substitute ampersand
+    _frmt.replace("&", "&amp;");
+
     return (_frmt);
 }
 
