@@ -1,5 +1,6 @@
 v2.0.4:
     - added support of connecting to password protected MPD servers
+    - added THANKS file
 
 v2.0.3:
     - substitute ampersand with &amp;
