@@ -1,9 +1,13 @@
 - perhaps search for album art using custom patterns with format arguments
 
 - perhaps search for album art in subdirectories (named like 'covers' or
-  similair)
+  similar)
 
 - perhaps add an option to pop-up a message after stopping playback
 
 - tunable duration of notifications (it seems like this depends only from
   notification daemon)
+
+- refactor code and break it into several classes
+
+- rewrite README file using markdown

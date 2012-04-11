@@ -45,6 +45,7 @@ private slots:
     void displayError(QAbstractSocket::SocketError _socketError);
 
 private:
+    QString m_password;
     // some state variables
     KNotification* m_notification;
     QTcpSocket m_soc;
@@ -68,6 +69,9 @@ private:
     QString m_lastArt;
     QString m_lastArtFilename;
 
+    void clearPassword(QString& _password) const;
+    void parseHostString(const QString& _hostString, QString& _host,
+                         QString& _password) const;
     void showSongInfo(const QStringList& _songInfo);
     void initLogging(const QString& _logFile);
     bool loadImg(const QString& _file, QPixmap& _pixmap);

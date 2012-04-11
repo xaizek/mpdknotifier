@@ -37,7 +37,9 @@ Notifier::Notifier() : QObject()
 {
     KConfig config("mpdknotifierrc");
     KConfigGroup generalGroup(&config, "General");
-    QString mpdHost = generalGroup.readEntry("MPDHost", "localhost");
+    QString mpdHostString = generalGroup.readEntry("MPDHost", "localhost");
+    QString mpdHost;
+    parseHostString(mpdHostString, mpdHost, m_password);
     QString mpdPort = generalGroup.readEntry("MPDPort", "6600");
 
     m_musicDir = generalGroup.readEntry("MusicDir", "/mnt/music/");
@@ -109,7 +111,12 @@ void Notifier::slotNewData()
     if (response.startsWith("OK")) {
         debug("'OK' response");
         // ask for notification on any changes in 'player' subsystem
-        m_soc.write(QByteArray("idle player\n"));
+        if (!m_password.isEmpty()) {
+            m_soc.write(QString("password %1\n").arg(m_password).toLocal8Bit());
+            clearPassword(m_password);
+        } else {
+            m_soc.write(QByteArray("idle player\n"));
+        }
     } else if (response.startsWith("changed")) {
         // there are some changes in subsystem
         debug("'changed' response");
@@ -136,7 +143,26 @@ void Notifier::slotNewData()
         debug("currentsong response");
         showSongInfo(response.split("\n"));
         m_soc.write(QByteArray("idle player\n"));
+    } else if (response.startsWith("ACK")) {
+        debug("'ACK' response: " + response);
+        m_soc.write(QByteArray("idle player\n"));
+    } else {
+        debug("unknown response: " + response);
     }
+}
+
+void Notifier::clearPassword(QString& _password) const
+{
+    _password.replace(0, m_password.length(), static_cast<QChar>('\0'));
+    _password.clear();
+}
+
+void Notifier::parseHostString(const QString& _hostString, QString& _host,
+                               QString& _password) const
+{
+    int atIndex = _hostString.indexOf('@');
+    _host = _hostString.mid(atIndex + 1);
+    _password = (atIndex >= 0) ? _hostString.left(atIndex) : "";
 }
 
 void Notifier::showSongInfo(const QStringList& _songInfo)

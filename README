@@ -56,7 +56,8 @@ symbol. Here is full format of each entry:
     Description.
 
 1) MPDHost [=localhost]
-Sets IP address or DNS name of MPD server host.
+Sets IP address or DNS name of MPD server host and host password in the
+following format: [password@]host, where password is optional.
 
 2) MPDPort [=6600]
 Sets number of port to connect to MPD server.
